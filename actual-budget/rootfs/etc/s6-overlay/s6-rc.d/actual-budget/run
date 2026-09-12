@@ -1,0 +1,26 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Community App: Actual Budget
+# Runs the Actual sync server
+# ==============================================================================
+
+export NODE_ENV="production"
+
+export ACTUAL_DATA_DIR="/data/actual"
+
+# Only ever listen on loopback; NGINX is what faces Ingress and the network.
+export ACTUAL_HOSTNAME="127.0.0.1"
+export ACTUAL_PORT="49000"
+
+# Every request reaches Actual through NGINX, so without loopback in this list
+# it would see one client, count everybody's requests against a single rate
+# limit and log that one address for all of them. The rest are Actual's own
+# defaults, which cover the Home Assistant side of the Ingress proxy, and are
+# repeated because naming the setting replaces the list rather than adding to
+# it.
+export ACTUAL_TRUSTED_PROXIES="127.0.0.1/32,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7,::1/128"
+
+bashio::log.info 'Starting Actual Budget...'
+
+exec node /opt/actual/node_modules/@actual-app/sync-server/build/app.js

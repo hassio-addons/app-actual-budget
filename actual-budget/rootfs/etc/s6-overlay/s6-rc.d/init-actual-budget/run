@@ -1,0 +1,15 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Community App: Actual Budget
+# Prepares the data directory
+# ==============================================================================
+
+# Everything Actual keeps lives under here: the account database that holds the
+# password and the list of budget files, the encrypted budgets themselves as
+# they were last synced up, and the files people attach to transactions.
+#
+# It is a directory of its own rather than /data, which also holds this app's
+# configuration, so that what belongs to Actual stays distinguishable from what
+# belongs to the app around it.
+mkdir -p /data/actual

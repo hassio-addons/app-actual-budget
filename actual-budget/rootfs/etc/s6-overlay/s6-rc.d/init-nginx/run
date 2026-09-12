@@ -1,0 +1,37 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Community App: Actual Budget
+# Configures NGINX for use with Actual
+# ==============================================================================
+
+# Generate Ingress configuration
+bashio::var.json \
+    interface "$(bashio::app.ip_address)" \
+    port "^$(bashio::app.ingress_port)" \
+    | tempio \
+        -template /etc/nginx/templates/ingress.gtpl \
+        -out /etc/nginx/servers/ingress.conf
+
+# Generate direct access configuration, if enabled. Anything that is not a
+# browser sitting in front of Home Assistant needs an address of its own: an
+# Ingress path exists only inside a Home Assistant session, so the mobile apps
+# and any bank that has to call back talk to this app over the published port
+# instead.
+#
+# What is asked for here is only whether a port was published at all. NGINX
+# listens on the container's own 5006 either way, which is the far side of
+# whatever mapping the "Network" section sets up, so moving the published port
+# to another number on the host keeps working.
+if bashio::var.has_value "$(bashio::app.port 5006)"; then
+    bashio::config.require.ssl
+
+    bashio::var.json \
+        certfile "$(bashio::config 'certfile')" \
+        keyfile "$(bashio::config 'keyfile')" \
+        port "^5006" \
+        ssl "^$(bashio::config 'ssl')" \
+        | tempio \
+            -template /etc/nginx/templates/direct.gtpl \
+            -out /etc/nginx/servers/direct.conf
+fi
