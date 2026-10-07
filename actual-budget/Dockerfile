@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:21.0.7
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:21.0.8
 ARG ACTUAL_VERSION="26.9.0"
 
 # Actual publishes its server to npm with the web client as a dependency, so
