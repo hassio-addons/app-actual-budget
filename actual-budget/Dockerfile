@@ -1,5 +1,5 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:21.0.8
-ARG ACTUAL_VERSION="26.9.0"
+ARG ACTUAL_VERSION="26.10.0"
 
 # Actual publishes its server to npm with the web client as a dependency, so
 # the whole application arrives as one install and none of the monorepo build
