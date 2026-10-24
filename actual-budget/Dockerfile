@@ -33,7 +33,7 @@ COPY patches /patches
 RUN \
     apk add --no-cache \
         build-base=0.5-r4 \
-        nodejs=24.22.1-r0 \
+        nodejs=24.18.1-r0 \
         npm=11.12.1-r0 \
         python3=3.14.8-r0 \
     \
@@ -61,7 +61,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     apk add --no-cache \
         nginx=1.30.6-r0 \
-        nodejs=24.22.1-r0 \
+        nodejs=24.18.1-r0 \
     \
     && rm -f -r \
         /etc/nginx \
