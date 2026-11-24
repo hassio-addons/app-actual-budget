@@ -35,7 +35,7 @@ RUN \
         build-base=0.5-r4 \
         nodejs=24.22.3-r0 \
         npm=11.12.1-r0 \
-        python3=3.14.10-r1 \
+        python3=3.14.10-r2 \
     \
     && npm install \
         --no-audit \
