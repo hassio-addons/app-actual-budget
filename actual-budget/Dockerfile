@@ -60,7 +60,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # the page on the way out. Actual itself only ever listens on loopback.
 RUN \
     apk add --no-cache \
-        nginx=1.30.7-r0 \
+        nginx=1.30.8-r0 \
         nodejs=24.22.3-r0 \
     \
     && rm -f -r \
